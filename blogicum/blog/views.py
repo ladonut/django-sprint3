@@ -1,9 +1,13 @@
 from django.shortcuts import render
-
 from django.http import Http404
+from blog.models import Post, Location, Category
 
 
 # posts_dictionary = {post['id']: post for post in posts}
+# min 110 -views)
+
+
+
 def index(request):
     template = 'blog/index.html'
     context = {'posts': reversed()}
@@ -30,3 +34,5 @@ def category_posts(request, category_slug):
     template = 'blog/category.html'
     context = {'slug': category_slug}
     return render(request, template, context)
+
+
