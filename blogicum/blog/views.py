@@ -1,17 +1,22 @@
+from typing import Union
+
+from django.conf import settings
 from django.shortcuts import render
-from django.http import Http404
+from django.http import Http404, HttpRequest, HttpResponse
+from django.utils.timezone import now 
 from blog.models import Post, Location, Category
 
 
-# posts_dictionary = {post['id']: post for post in posts}
-# min 110 -views)
-
-
-
-def index(request):
-    template = 'blog/index.html'
-    context = {'posts': reversed()}
-    return render(request, template, context)
+def index(request: HttpRequest) -> HttpResponse:
+    post_list = Post.objects.select_related(
+        'author', 'category', 'location',
+    ).filter(
+        is_published=True,
+        pub_date__lt=now(),
+        category__is_published=True, 
+    )[:settings.POSTS_BY_PAGE]
+    
+    return render(request, 'blog/index.html', {'post_list': post_list})
 
 
 def post_detail(request, id):
