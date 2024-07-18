@@ -37,7 +37,8 @@ def post_detail(request: HttpRequest, post_id: int) -> HttpResponse:
 def category_posts(request: HttpRequest, category_slug) -> HttpResponse:
     category = get_object_or_404(
         Category.objects,
-        slug=category_slug
+        slug=category_slug,
+        is_published=True
     )
 
     post_list = Post.objects.select_related(

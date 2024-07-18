@@ -31,7 +31,7 @@ class Category(BaseBlogModel):
     slug = models.SlugField(
         max_length=64, unique=True,
         help_text='Идентификатор страницы для URL; разрешены символы латиницы,'
-        'цифры, дефис и подчёркивание',
+        ' цифры, дефис и подчёркивание.',
         verbose_name='Идентификатор')   
 
     class Meta:
@@ -61,8 +61,8 @@ class Post(BaseBlogModel):
     text = models.TextField(blank=False, verbose_name='Текст')
     pub_date = models.DateTimeField(
         blank=False,
-        help_text='Если установить дату и время в будущем — можно'
-        'делать отложенные публикации',
+        help_text='Если установить дату и время в будущем — можно '
+        'делать отложенные публикации.',
         verbose_name='Дата и время публикации'
     )
     author = models.ForeignKey(
