@@ -20,6 +20,7 @@ class CategoryAdmin(admin.ModelAdmin):
     list_editable = ('is_published',)
     list_filter = ('id', )            
     empty_value_display = '-пусто-'
+    
 
 class LocationAdmin(admin.ModelAdmin):
     search_fields = ('name', )
