@@ -1,5 +1,4 @@
 from django.db import models
-import datetime
 from django.contrib.auth import get_user_model
 
 
@@ -11,13 +10,13 @@ class BaseBlogModel(models.Model):
         'Опубликовано',
         default=True,
         help_text='Снимите галочку, чтобы скрыть публикацию.'
-    )    
+    )
     created_at = models.DateTimeField(
-        'Добавлено', 
-        auto_now_add=True, 
+        'Добавлено',
+        auto_now_add=True,
         blank=False,)
-     
-    class Meta: 
+
+    class Meta:
         abstract = True
         ordering = ('created_at',)
 
@@ -32,7 +31,7 @@ class Category(BaseBlogModel):
         max_length=64, unique=True,
         help_text='Идентификатор страницы для URL; разрешены символы латиницы,'
         ' цифры, дефис и подчёркивание.',
-        verbose_name='Идентификатор')   
+        verbose_name='Идентификатор')
 
     class Meta:
         verbose_name = 'категория'
@@ -45,14 +44,14 @@ class Category(BaseBlogModel):
 class Location(BaseBlogModel):
     name = models.CharField(
         max_length=256, blank=False, verbose_name='Название места')
-    
+
     class Meta:
         verbose_name = 'местоположение'
         verbose_name_plural = 'Местоположения'
 
     def __str__(self):
         return self.name
-    
+
 
 class Post(BaseBlogModel):
     title = models.CharField(
@@ -66,7 +65,7 @@ class Post(BaseBlogModel):
         verbose_name='Дата и время публикации'
     )
     author = models.ForeignKey(
-        User, on_delete=models.CASCADE, 
+        User, on_delete=models.CASCADE,
         blank=False,
         verbose_name='Автор публикации'
     )
@@ -87,7 +86,6 @@ class Post(BaseBlogModel):
         default_related_name = 'posts'
         verbose_name = 'публикация'
         verbose_name_plural = 'Публикации'
-        #ordering = ('-pub-date', )
 
     def __str__(self):
         return self.title

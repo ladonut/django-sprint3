@@ -4,23 +4,23 @@ from .models import Category, Location, Post
 
 class PostAdmin(admin.ModelAdmin):
     search_fields = ('text', )
-    list_display = ('id', 'title', 'author', 'text', 
+    list_display = ('id', 'title', 'author', 'text',
                     'category', 'pub_date', 'location',
                     'is_published', 'created_at')
     list_display_links = ('title',)
     list_editable = ('category', 'is_published', 'location')
-    list_filter = ('created_at', )            
+    list_filter = ('created_at', )
     empty_value_display = '-пусто-'
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'description', 'slug', 
+    list_display = ('id', 'title', 'description', 'slug',
                     'is_published', 'created_at')
     list_display_links = ('title',)
     list_editable = ('is_published',)
-    list_filter = ('id', )            
+    list_filter = ('id', )
     empty_value_display = '-пусто-'
-    
+
 
 class LocationAdmin(admin.ModelAdmin):
     search_fields = ('name', )
@@ -28,11 +28,10 @@ class LocationAdmin(admin.ModelAdmin):
                     'is_published', 'created_at')
     list_display_links = ('name',)
     list_editable = ('is_published',)
-    list_filter = ('name',)            
+    list_filter = ('name',)
     empty_value_display = 'Планета Земля'
 
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Location, LocationAdmin)
 admin.site.register(Post, PostAdmin)
-

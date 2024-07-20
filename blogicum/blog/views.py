@@ -1,10 +1,8 @@
-from typing import Union
-
 from django.conf import settings
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpRequest, HttpResponse
-from django.utils.timezone import now 
-from blog.models import Post, Location, Category
+from django.utils.timezone import now
+from blog.models import Post, Category
 
 
 def index(request: HttpRequest) -> HttpResponse:
@@ -13,9 +11,9 @@ def index(request: HttpRequest) -> HttpResponse:
     ).filter(
         is_published=True,
         pub_date__lt=now(),
-        category__is_published=True, 
+        category__is_published=True,
     )[:settings.POSTS_BY_PAGE]
-    
+
     return render(request, 'blog/index.html', {'post_list': post_list})
 
 
@@ -49,9 +47,8 @@ def category_posts(request: HttpRequest, category_slug) -> HttpResponse:
         category__is_published=True,
         category__slug=category_slug
     )
-    
+
     return render(request, 'blog/category.html', {
         'category': category,
         'post_list': post_list
     })
-
