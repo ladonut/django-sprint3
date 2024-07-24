@@ -131,3 +131,5 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 POSTS_BY_PAGE = 5
+
+MAX_FIELD_LENGTH = 256

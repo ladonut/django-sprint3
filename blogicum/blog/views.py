@@ -1,7 +1,11 @@
 from django.conf import settings
+
 from django.shortcuts import render, get_object_or_404
+
 from django.http import HttpRequest, HttpResponse
+
 from django.utils.timezone import now
+
 from blog.models import Post, Category
 
 

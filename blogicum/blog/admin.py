@@ -1,10 +1,11 @@
 from django.contrib import admin
+
 from .models import Category, Location, Post
 
 
 class PostAdmin(admin.ModelAdmin):
     search_fields = ('text', )
-    list_display = ('id', 'title', 'author', 'text',
+    list_display = ('id', 'title', 'author',
                     'category', 'pub_date', 'location',
                     'is_published', 'created_at')
     list_display_links = ('title',)
