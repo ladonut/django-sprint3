@@ -9,27 +9,27 @@ from django.utils.timezone import now
 from blog.models import Post, Category
 
 
-def index(request: HttpRequest) -> HttpResponse:
-    post_list = Post.objects.select_related(
-        'author', 'category', 'location',
-    ).filter(
-        is_published=True,
-        pub_date__lt=now(),
-        category__is_published=True,
-    )[:settings.POSTS_BY_PAGE]
-
-    return render(request, 'blog/index.html', {'post_list': post_list})
-
-
-def post_detail(request: HttpRequest, post_id: int) -> HttpResponse:
-    post = get_object_or_404(
+def get_post_list():
+    return (
         Post.objects.select_related(
             'author', 'category', 'location'
         ).filter(
             is_published=True,
             pub_date__lt=now(),
             category__is_published=True,
-        ),
+        )
+    )
+
+
+def index(request: HttpRequest) -> HttpResponse:
+    post_list = get_post_list()[:settings.POSTS_BY_PAGE]
+
+    return render(request, 'blog/index.html', {'post_list': post_list})
+
+
+def post_detail(request: HttpRequest, post_id: int) -> HttpResponse:
+    post = get_object_or_404(
+        get_post_list(),
         id=post_id
     )
 
