@@ -43,14 +43,7 @@ def category_posts(request: HttpRequest, category_slug) -> HttpResponse:
         is_published=True
     )
 
-    post_list = Post.objects.select_related(
-        'author', 'category', 'location',
-    ).filter(
-        is_published=True,
-        pub_date__lt=now(),
-        category__is_published=True,
-        category__slug=category_slug
-    )
+    post_list = get_post_list().filter(category__slug=category_slug)
 
     return render(request, 'blog/category.html', {
         'category': category,
